@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
 import { HiOutlineMail, HiOutlineEye } from "react-icons/hi";
@@ -8,7 +10,8 @@ import { FiDownload } from "react-icons/fi";
 import { heroStats, profile, resumeUrl, socials } from "@/lib/data";
 import Typewriter from "./Typewriter";
 import TechMarquee from "./TechMarquee";
-import ResumeViewer from "./ResumeViewer";
+
+const ResumeViewer = dynamic(() => import("./ResumeViewer"), { ssr: false });
 
 const socialIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   GitHub: FaGithub,
@@ -149,13 +152,21 @@ export default function Hero() {
           className="col-span-12 lg:col-span-6 order-1 lg:order-2 flex items-end justify-center relative"
         >
           <div className="relative">
-            <motion.img
-              src="/AR Logo7.png"
-              alt={profile.fullName}
+            <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="relative z-10 max-h-[380px] md:max-h-[420px] lg:max-h-[440px] w-auto object-contain drop-shadow-2xl"
-            />
+              className="relative z-10 drop-shadow-2xl"
+            >
+              <Image
+                src="/AR Logo7.png"
+                alt={profile.fullName}
+                width={440}
+                height={440}
+                priority
+                sizes="(max-width: 768px) 280px, (max-width: 1024px) 360px, 440px"
+                className="max-h-[380px] md:max-h-[420px] lg:max-h-[440px] w-auto object-contain"
+              />
+            </motion.div>
             <span className="absolute top-12 right-0 w-2.5 h-4 rounded-full bg-primary shadow-lg shadow-primary/60" />
           </div>
         </motion.div>

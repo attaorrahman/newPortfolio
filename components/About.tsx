@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   SiReact,
@@ -108,10 +109,12 @@ export default function About() {
                 />
 
                 {/* Portrait */}
-                <img
+                <Image
                   src="/AR Logo7.png"
                   alt="Atta Ur Rahman"
-                  className="relative z-10 w-full h-full object-contain object-bottom drop-shadow-2xl"
+                  fill
+                  sizes="(max-width: 768px) 90vw, 460px"
+                  className="relative z-10 object-contain object-bottom drop-shadow-2xl"
                 />
 
                 {/* Subtle bottom fade */}

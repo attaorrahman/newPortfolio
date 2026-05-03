@@ -1,14 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { FaWhatsapp } from "react-icons/fa";
 import { SiGmail } from "react-icons/si";
 import { HiOutlineCalendar } from "react-icons/hi";
 import { RiRobot2Fill } from "react-icons/ri";
-import MeetingScheduler from "./MeetingScheduler";
-import AIChatbot from "./AIChatbot";
 import { contactEmail, whatsappNumber } from "@/lib/data";
+
+const MeetingScheduler = dynamic(() => import("./MeetingScheduler"), {
+  ssr: false,
+});
+const AIChatbot = dynamic(() => import("./AIChatbot"), { ssr: false });
 
 export default function FloatingActions() {
   const [schedulerOpen, setSchedulerOpen] = useState(false);

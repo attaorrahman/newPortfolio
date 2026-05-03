@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { FiExternalLink } from "react-icons/fi";
 import { FaGithub, FaLock } from "react-icons/fa";
@@ -21,10 +22,13 @@ export default function ProjectCard({ project, index = 0 }: Props) {
       className={`group relative rounded-3xl overflow-hidden aspect-[4/5] bg-gradient-to-br ${project.gradient} shadow-2xl`}
     >
       {/* Screenshot blended into gradient */}
-      <img
+      <Image
         src={project.image}
         alt={project.title}
-        className="absolute inset-0 w-full h-full object-cover object-top mix-blend-overlay opacity-90 group-hover:scale-110 transition-transform duration-700"
+        fill
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        loading="lazy"
+        className="absolute inset-0 object-cover object-top mix-blend-overlay opacity-90 group-hover:scale-110 transition-transform duration-700"
       />
 
       {/* Hover sheen */}

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { FiArrowUpRight } from "react-icons/fi";
 import { articles } from "@/lib/data";
@@ -57,11 +58,14 @@ export default function Blog() {
                 <div className="text-xs text-text-muted">{a.month}</div>
               </div>
 
-              <div className="flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden">
-                <img
+              <div className="flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden relative">
+                <Image
                   src={a.image}
                   alt={a.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  fill
+                  sizes="80px"
+                  loading="lazy"
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
                 />
               </div>
 

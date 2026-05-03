@@ -16,8 +16,13 @@ const config: Config = {
         "text-muted": "#6B7280",
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-        display: ["Poppins", "system-ui", "sans-serif"],
+        sans: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"],
+        display: [
+          "var(--font-poppins)",
+          "Poppins",
+          "system-ui",
+          "sans-serif",
+        ],
       },
       animation: {
         float: "float 6s ease-in-out infinite",

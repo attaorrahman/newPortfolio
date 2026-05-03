@@ -1,8 +1,24 @@
 import { Suspense } from "react";
 import type { Metadata, Viewport } from "next";
+import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import VisitTracker from "@/components/VisitTracker";
 import RouteLoader from "@/components/RouteLoader";
+import SplashLoader from "@/components/SplashLoader";
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-poppins",
+  display: "swap",
+});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://attaurrahman.dev";
 
@@ -111,7 +127,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <head>
         <script
           type="application/ld+json"
@@ -119,6 +135,7 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
+        <SplashLoader />
         <Suspense fallback={null}>
           <RouteLoader />
         </Suspense>

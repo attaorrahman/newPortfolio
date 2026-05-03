@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { profile } from "@/lib/data";
 
@@ -33,9 +34,13 @@ export default function AboutIntro() {
                 <path d="M12 2C8 6 6 10 10 14c-2 1-4 3-4 6 3 0 5-2 6-4 4 4 8 2 12-2-4-4-8-6-12-12z" />
               </svg>
 
-              <img
+              <Image
                 src="/AR Logo7.png"
                 alt={profile.fullName}
+                width={560}
+                height={644}
+                priority
+                sizes="(max-width: 768px) 90vw, 460px"
                 className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[115%] w-auto max-w-none object-contain object-bottom drop-shadow-2xl"
               />
             </div>

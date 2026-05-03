@@ -1,13 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiMenuAlt3, HiX, HiOutlineEye } from "react-icons/hi";
 import { FiDownload } from "react-icons/fi";
 import { navLinks, resumeUrl } from "@/lib/data";
-import ResumeViewer from "./ResumeViewer";
+
+const ResumeViewer = dynamic(() => import("./ResumeViewer"), { ssr: false });
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
