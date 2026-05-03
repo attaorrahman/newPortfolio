@@ -84,21 +84,19 @@ export default function AboutSkills() {
             </h3>
             <div className="space-y-5">
               {softSkills.map((s, i) => (
-                <div key={s.name}>
-                  <div className="flex items-center justify-between mb-2 text-sm">
-                    <span className="text-navy font-semibold">{s.name}</span>
-                    <span className="text-text-muted text-xs">{s.level}%</span>
-                  </div>
-                  <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${s.level}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, delay: 0.1 + i * 0.1 }}
-                      className="h-full bg-gradient-to-r from-fuchsia-600 via-primary to-purple-500 rounded-full"
-                    />
-                  </div>
-                </div>
+                <motion.div
+                  key={s.name}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 + i * 0.08 }}
+                  className="flex items-center gap-3 bg-white border border-gray-100 rounded-xl px-4 py-3 shadow-sm"
+                >
+                  <span className="w-2 h-2 rounded-full bg-primary" />
+                  <span className="text-navy font-semibold text-sm">
+                    {s.name}
+                  </span>
+                </motion.div>
               ))}
             </div>
           </motion.div>

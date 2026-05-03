@@ -62,26 +62,13 @@ export default function Services() {
                   {s.description}
                 </p>
 
-                {/* Progress */}
-                <div className="flex items-center justify-between mb-2 text-xs">
+                <div className="flex items-center justify-between text-xs">
                   <a
                     href="#"
                     className="text-navy font-semibold hover:text-primary transition-colors"
                   >
                     Explore
                   </a>
-                  <span className="text-primary font-semibold">
-                    {s.progress}%
-                  </span>
-                </div>
-                <div className="h-1 bg-gray-200 rounded-full overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${s.progress}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1, delay: 0.3 + i * 0.1 }}
-                    className="h-full bg-gradient-to-r from-primary to-accent rounded-full"
-                  />
                 </div>
 
                 {/* Arrow */}

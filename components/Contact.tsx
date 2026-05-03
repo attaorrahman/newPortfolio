@@ -7,14 +7,13 @@ import {
   HiOutlinePhone,
   HiOutlineLocationMarker,
 } from "react-icons/hi";
-import { FaGithub, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
+import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
 import { FiArrowUpRight } from "react-icons/fi";
-import { profile, socials } from "@/lib/data";
+import { profile, socials, contactEmail } from "@/lib/data";
 
 const contactIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   GitHub: FaGithub,
   LinkedIn: FaLinkedinIn,
-  X: FaXTwitter,
   Email: HiOutlineMail,
 };
 
@@ -39,14 +38,52 @@ const contactCards = [
   },
 ];
 
+type Status = "idle" | "sending" | "sent" | "error";
 
 export default function Contact() {
-  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+  const [status, setStatus] = useState<Status>("idle");
+  const [errorMsg, setErrorMsg] = useState<string>("");
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (status === "sending") return;
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    if ((data.get("_honey") as string)?.trim()) return;
+
     setStatus("sending");
-    setTimeout(() => setStatus("sent"), 900);
+    setErrorMsg("");
+
+    try {
+      const payload = {
+        name: String(data.get("name") || ""),
+        email: String(data.get("email") || ""),
+        subject: String(data.get("subject") || ""),
+        message: String(data.get("message") || ""),
+        _honey: String(data.get("_honey") || ""),
+      };
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(json?.error || `Request failed (${res.status})`);
+      }
+      setStatus("sent");
+      form.reset();
+      setTimeout(() => setStatus("idle"), 5000);
+    } catch (err) {
+      setStatus("error");
+      setErrorMsg(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please email me directly."
+      );
+    }
   };
 
   return (
@@ -135,6 +172,16 @@ export default function Contact() {
             viewport={{ once: true }}
             className="lg:col-span-3 bg-gradient-to-br from-gray-50 to-white border border-gray-100 rounded-2xl p-8 shadow-sm space-y-5"
           >
+            {/* Honeypot — bots fill this; humans never see it */}
+            <input
+              type="text"
+              name="_honey"
+              tabIndex={-1}
+              autoComplete="off"
+              className="hidden"
+              aria-hidden="true"
+            />
+
             <div className="grid md:grid-cols-2 gap-5">
               <div>
                 <label className="block text-xs font-semibold text-navy mb-2 uppercase tracking-wider">
@@ -143,6 +190,7 @@ export default function Contact() {
                 <input
                   required
                   type="text"
+                  name="name"
                   placeholder="Your name"
                   className="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition text-sm"
                 />
@@ -154,6 +202,7 @@ export default function Contact() {
                 <input
                   required
                   type="email"
+                  name="email"
                   placeholder="you@example.com"
                   className="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition text-sm"
                 />
@@ -166,6 +215,7 @@ export default function Contact() {
               </label>
               <input
                 type="text"
+                name="subject"
                 placeholder="What's this about?"
                 className="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition text-sm"
               />
@@ -177,23 +227,47 @@ export default function Contact() {
               </label>
               <textarea
                 required
+                name="message"
                 rows={5}
                 placeholder="Tell me a little about your project..."
                 className="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition text-sm resize-none"
               />
             </div>
 
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              type="submit"
-              disabled={status !== "idle"}
-              className="w-full md:w-auto bg-gradient-to-r from-primary to-accent text-white px-8 py-3 rounded-full font-semibold shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-shadow disabled:opacity-70"
-            >
-              {status === "idle" && "Send Message"}
-              {status === "sending" && "Sending..."}
-              {status === "sent" && "Message Sent ✓"}
-            </motion.button>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+              <motion.button
+                whileHover={{ scale: status === "idle" ? 1.02 : 1 }}
+                whileTap={{ scale: status === "idle" ? 0.98 : 1 }}
+                type="submit"
+                disabled={status === "sending"}
+                className="w-full sm:w-auto bg-gradient-to-r from-primary to-accent text-white px-8 py-3 rounded-full font-semibold shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-shadow disabled:opacity-70 disabled:cursor-not-allowed"
+              >
+                {status === "idle" && "Send Message"}
+                {status === "sending" && "Sending..."}
+                {status === "sent" && "Message Sent ✓"}
+                {status === "error" && "Try Again"}
+              </motion.button>
+
+              {status === "sent" && (
+                <motion.span
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="text-emerald-600 text-sm font-medium"
+                >
+                  Thanks! I'll reply within 24 hours.
+                </motion.span>
+              )}
+              {status === "error" && (
+                <motion.span
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="text-red-600 text-sm font-medium"
+                >
+                  {errorMsg ||
+                    `Couldn't send. Email me at ${contactEmail} instead.`}
+                </motion.span>
+              )}
+            </div>
           </motion.form>
         </div>
       </div>

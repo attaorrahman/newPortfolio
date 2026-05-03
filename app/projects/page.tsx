@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import FloatingActions from "@/components/FloatingActions";
+import ScrollProgress from "@/components/ScrollProgress";
 import ProjectCard from "@/components/ProjectCard";
 import { FiArrowLeft } from "react-icons/fi";
 
@@ -16,6 +17,7 @@ export const metadata = {
 export default function ProjectsPage() {
   return (
     <main className="relative overflow-hidden bg-navy-dark min-h-screen">
+      <ScrollProgress />
       <CustomCursor />
       <Navbar />
 

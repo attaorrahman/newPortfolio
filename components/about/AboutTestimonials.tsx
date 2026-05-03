@@ -6,6 +6,41 @@ import { FiArrowUpRight } from "react-icons/fi";
 import { RiDoubleQuotesL } from "react-icons/ri";
 import { testimonials } from "@/lib/data";
 
+const PALETTE = [
+  "from-rose-500 to-orange-500",
+  "from-indigo-500 to-violet-500",
+  "from-emerald-500 to-teal-500",
+  "from-amber-500 to-yellow-500",
+];
+
+function Monogram({
+  name,
+  index,
+  size = 40,
+}: {
+  name: string;
+  index: number;
+  size?: number;
+}) {
+  const initials = name
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase())
+    .join("");
+  return (
+    <div
+      style={{ width: size, height: size }}
+      className={`rounded-full bg-gradient-to-br ${
+        PALETTE[index % PALETTE.length]
+      } flex items-center justify-center text-white font-bold shadow-md`}
+      aria-hidden
+    >
+      <span className="text-sm">{initials}</span>
+    </div>
+  );
+}
+
 export default function AboutTestimonials() {
   return (
     <section className="py-20 bg-primary/5 relative overflow-hidden">
@@ -50,14 +85,9 @@ export default function AboutTestimonials() {
               <RiDoubleQuotesL className="text-primary text-3xl mb-3" />
               <p className="text-text-muted leading-relaxed mb-6">{t.quote}</p>
               <div className="flex items-center gap-3">
-                <img
-                  src={t.avatar}
-                  alt={t.name}
-                  className="w-12 h-12 rounded-full object-cover"
-                />
+                <Monogram name={t.name} index={i} size={48} />
                 <div>
                   <div className="text-navy font-bold">{t.name}</div>
-                  <div className="text-xs text-text-muted">{t.role}</div>
                 </div>
               </div>
             </motion.div>

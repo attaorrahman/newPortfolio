@@ -1,17 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { FaWhatsapp } from "react-icons/fa";
 import { SiGmail } from "react-icons/si";
 import { HiOutlineCalendar } from "react-icons/hi";
+import { RiRobot2Fill } from "react-icons/ri";
 import MeetingScheduler from "./MeetingScheduler";
+import AIChatbot from "./AIChatbot";
 import { contactEmail, whatsappNumber } from "@/lib/data";
 
 export default function FloatingActions() {
   const [schedulerOpen, setSchedulerOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
 
   const actions = [
+    {
+      label: "AI Assistant",
+      icon: RiRobot2Fill,
+      bg: "bg-gradient-to-br from-indigo-500 to-purple-600 hover:from-purple-600 hover:to-indigo-500",
+      ring: "shadow-purple-500/40",
+      onClick: () => setChatOpen(true),
+      pulse: true,
+    },
     {
       label: "WhatsApp",
       icon: FaWhatsapp,
@@ -57,17 +68,17 @@ export default function FloatingActions() {
             onClick={a.onClick}
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1 + i * 0.12, type: "spring", damping: 18 }}
+            transition={{ delay: 0.8 + i * 0.12, type: "spring", damping: 18 }}
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.92 }}
-            className={`group relative w-13 h-13 md:w-14 md:h-14 rounded-full ${a.bg} ${a.ring} shadow-xl flex items-center justify-center text-white text-xl transition-colors`}
+            className={`group relative rounded-full ${a.bg} ${a.ring} shadow-xl flex items-center justify-center text-white text-xl transition-colors`}
             style={{ width: 54, height: 54 }}
           >
             <a.icon />
-            {/* Pulsing halo */}
-            <span className="absolute inset-0 rounded-full bg-current opacity-20 animate-ping pointer-events-none" />
+            {a.pulse && (
+              <span className="absolute inset-0 rounded-full bg-white/30 animate-ping pointer-events-none" />
+            )}
 
-            {/* Tooltip */}
             <span className="pointer-events-none absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap bg-navy text-white text-xs font-medium px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">
               {a.label}
               <span className="absolute left-full top-1/2 -translate-y-1/2 border-4 border-transparent border-l-navy" />
@@ -80,6 +91,8 @@ export default function FloatingActions() {
         open={schedulerOpen}
         onClose={() => setSchedulerOpen(false)}
       />
+
+      <AIChatbot open={chatOpen} onClose={() => setChatOpen(false)} />
     </>
   );
 }

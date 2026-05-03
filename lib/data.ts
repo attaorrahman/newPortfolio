@@ -2,7 +2,7 @@ export const profile = {
   firstName: "Atta Ur",
   lastName: "Rahman",
   fullName: "M. Atta Ur Rahman",
-  role: "Full Stack Developer",
+  role: "AI Powered Full Stack Developer",
   location: "Based in Lahore",
   email: "ar416.official@gmail.com",
   phone: "+92 321 6108400",
@@ -19,8 +19,8 @@ export const navLinks = [
   { name: "Contact", href: "/#contact" },
 ];
 
-export const resumeUrl = "/MR%20ATTA%20UR%20RAHMAN%20Resume.pdf";
-export const resumeFileName = "MR-ATTA-UR-RAHMAN-Resume.pdf";
+export const resumeUrl = "/Mr.%20Atta%20Ur%20Rahman%20resume.pdf";
+export const resumeFileName = "Mr.-Atta-Ur-Rahman-Resume.pdf";
 
 export const whatsappNumber = "923216108400"; // international format, no +
 export const contactEmail = "ar416.official@gmail.com";
@@ -35,7 +35,7 @@ export const aboutTabs = ["MYSELF", "EDUCATION", "MY TOOLS"] as const;
 
 export const aboutContent = {
   MYSELF:
-    "Full Stack Developer with 3+ years of experience building responsive and dynamic web applications using React.js, Next.js, and Node.js. I create clean, scalable user interfaces, develop RESTful APIs, and integrate third-party services to deliver smooth, high-performance experiences — with strong focus on troubleshooting and cross-functional delivery.",
+    "AI Powered Full Stack Developer with 3+ years of experience building responsive and dynamic web applications using React.js, Next.js, and Node.js. I create clean, scalable user interfaces, develop RESTful APIs, and integrate third-party services to deliver smooth, high-performance experiences — with strong focus on troubleshooting and cross-functional delivery.",
   EDUCATION:
     "BS Computer Science — The Islamia University Bahawalpur. Intermediate from Govt. Sayad Nasr Ul Deen Shah Degree College, Gogran, Lodhran. Certified by Microsoft (Frontend Developer), IBM (Front-End Apps with React) and Packt/Coursera (Advanced React & Ecommerce).",
   "MY TOOLS":
@@ -203,15 +203,15 @@ export const projects: Project[] = [
 export const socials = [
   { label: "GitHub", href: "https://github.com/attaorrahman" },
   { label: "LinkedIn", href: "https://linkedin.com/in/attaurahman" },
-  { label: "X", href: "https://x.com/yourhandle" },
   { label: "Email", href: "mailto:ar416.official@gmail.com" },
 ];
+
+export const happyClients = "30+";
 
 export const testimonials = [
   {
     id: 1,
     name: "Aleedz Solutions",
-    role: "Product Lead",
     quote:
       "Atta shipped our entire dashboard — responsive tables, advanced filters, Excel export — and kept it performant with memoization and virtualization. Reliable under pressure.",
     avatar: "https://randomuser.me/api/portraits/men/32.jpg",
@@ -219,7 +219,6 @@ export const testimonials = [
   {
     id: 2,
     name: "Ahmasoft",
-    role: "Engineering Manager",
     quote:
       "Strong across both React/Next.js and backend APIs. Picked up production bugs quickly and delivered clean fixes without breaking responsive layouts.",
     avatar: "https://randomuser.me/api/portraits/men/45.jpg",
@@ -227,7 +226,6 @@ export const testimonials = [
   {
     id: 3,
     name: "Voyage Freight",
-    role: "CTO",
     quote:
       "Built client and admin features with solid JWT auth, PDF generation and real-time validation. Delivered on time across desktop and mobile.",
     avatar: "https://randomuser.me/api/portraits/women/68.jpg",
@@ -235,7 +233,6 @@ export const testimonials = [
   {
     id: 4,
     name: "Freelance Client",
-    role: "Founder",
     quote:
       "Integrated Stripe checkout and a full Node/Mongo backend for our store. Smooth shopping experience and clean handoff — highly recommended.",
     avatar: "https://randomuser.me/api/portraits/women/44.jpg",
@@ -283,26 +280,28 @@ export const skillGroups = [
 
 export const experience = [
   {
-    company: "Aleedz Solutions",
-    role: "Web Developer",
-    period: "Aug 2024 — Present",
-    location: "Remote · New Zealand",
+    company: "Ahmasoft",
+    role: "Senior Full Stack Engineer",
+    period: "Feb 2025 — Present",
+    location: "Lahore, Pakistan",
     bullets: [
-      "Built and maintained the full frontend using React.js + Redux Toolkit — dashboards, data tables, advanced filters, modals and image previews.",
-      "Integrated APIs with Axios, implemented pagination, search, sorting and Excel export via XLSX.",
-      "Performance work with React.lazy, Suspense, useMemo, React.memo, virtualized tables and debouncing.",
-      "Provided technical support diagnosing UI/API issues and resolving production bugs.",
+      "Developed and enhanced web applications using React.js, Next.js and Redux Toolkit — dashboards, tables, filters and responsive UI components.",
+      "Worked with backend APIs and server endpoints, managing data flow and implementing search, pagination, sorting and export.",
+      "Performed testing and application support — fixing UI bugs, responsiveness issues and resolving production problems.",
+      "Improved performance using code-splitting, memoization and optimized rendering, while maintaining responsive layouts with Material UI, Bootstrap and custom CSS.",
     ],
   },
   {
-    company: "Ahmasoft",
-    role: "Frontend / Backend Developer",
-    period: "Nov 2024 — Feb 2026",
-    location: "",
+    company: "Aleedz Solutions",
+    role: "Full Stack Engineer",
+    period: "Aug 2024 — Feb 2025",
+    location: "Remote · New Zealand",
     bullets: [
-      "Developed apps with React.js, Next.js and Redux Toolkit — dashboards, tables, filters, responsive UI.",
-      "Worked with backend APIs and server endpoints managing data flow, search, pagination, sorting and export.",
-      "Improved performance using code-splitting, memoization and optimized rendering.",
+      "Built and maintained the full frontend using React.js + Redux Toolkit — dynamic dashboards, responsive data tables, advanced filters, multi-level dropdowns, modals and image previews.",
+      "Provided technical support diagnosing UI/API issues, coordinating with backend teams and resolving production bugs.",
+      "Integrated APIs with Axios for real-time fetching, implemented pagination, search, sorting and Excel export via XLSX.",
+      "Performance work with React.lazy, Suspense, useMemo, React.memo, useRef, debouncing and virtualized tables.",
+      "Implemented conditional rendering, real-time form validation, PDF/image handling and interactive UI workflows.",
     ],
   },
   {
@@ -311,10 +310,11 @@ export const experience = [
     period: "Nov 2023 — Aug 2024",
     location: "Lahore",
     bullets: [
-      "Built client- and admin-side features with React.js and Next.js — SEO-friendly, modular frontend apps.",
-      "Redux Toolkit state, Axios data flow, JWT auth with real-time form validation.",
-      "Interactive dashboards, tables, filters, modals, and PDF generation via PDF-Kit.",
-      "Optimized with React.memo, useMemo, useRef and lazy loading.",
+      "Built client- and admin-side features with React.js and Next.js — modular, SEO-friendly, maintainable frontend apps.",
+      "Triaged client-reported issues, reproduced bugs and delivered timely fixes to ensure smooth platform operations.",
+      "Managed state with Redux Toolkit, handled dynamic data via Axios, implemented JWT auth with real-time form validation.",
+      "Created interactive dashboards, tables, filters, modals and PDF generation via PDF-Kit.",
+      "Optimized with React.memo, useMemo, useRef and lazy loading via React.lazy + Suspense.",
     ],
   },
 ];

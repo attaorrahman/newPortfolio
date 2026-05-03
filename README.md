@@ -1,6 +1,6 @@
 # newPortfolio
 
-Personal portfolio of **M. Atta Ur Rahman** — Full Stack Developer.
+Personal portfolio of **M. Atta Ur Rahman** — AI Powered Full Stack Developer.
 
 Built with [Next.js](https://nextjs.org/), [TypeScript](https://www.typescriptlang.org/), [Tailwind CSS](https://tailwindcss.com/) and [Framer Motion](https://www.framer.com/motion/).
 

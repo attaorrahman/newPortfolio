@@ -22,9 +22,11 @@ export default function CustomCursor() {
   const dotY = useSpring(mouseY, { damping: 30, stiffness: 900, mass: 0.25 });
 
   useEffect(() => {
-    const mq = window.matchMedia("(pointer: fine)");
+    const mq = window.matchMedia("(pointer: fine) and (hover: hover)");
     setEnabled(mq.matches);
     if (!mq.matches) return;
+
+    document.body.classList.add("has-custom-cursor");
 
     const move = (e: MouseEvent) => {
       mouseX.set(e.clientX);
@@ -43,6 +45,7 @@ export default function CustomCursor() {
     return () => {
       window.removeEventListener("mousemove", move);
       window.removeEventListener("mouseover", over);
+      document.body.classList.remove("has-custom-cursor");
     };
   }, [mouseX, mouseY]);
 

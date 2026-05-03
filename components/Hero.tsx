@@ -1,15 +1,18 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { FaGithub, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
-import { HiOutlineMail } from "react-icons/hi";
+import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
+import { HiOutlineMail, HiOutlineEye } from "react-icons/hi";
 import { FiDownload } from "react-icons/fi";
 import { heroStats, profile, resumeUrl, socials } from "@/lib/data";
+import Typewriter from "./Typewriter";
+import TechMarquee from "./TechMarquee";
+import ResumeViewer from "./ResumeViewer";
 
 const socialIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   GitHub: FaGithub,
   LinkedIn: FaLinkedinIn,
-  X: FaXTwitter,
   Email: HiOutlineMail,
 };
 
@@ -22,15 +25,43 @@ const fadeUp = {
   }),
 };
 
+const rotatingRoles = [
+  "AI Powered Full-Stack Developer",
+  "React.js Specialist",
+  "Next.js Engineer",
+  "Node.js + API Builder",
+  "MERN Stack Developer",
+];
+
 export default function Hero() {
+  const [previewOpen, setPreviewOpen] = useState(false);
   return (
     <section
       id="home"
-      className="relative min-h-screen bg-gradient-to-b from-navy-dark via-navy to-navy-light pt-20 pb-10 overflow-hidden"
+      className="relative min-h-screen bg-gradient-to-b from-navy-dark via-navy to-navy-light pt-20 pb-0 overflow-hidden"
     >
+      {/* Animated grid background */}
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-[0.07] pointer-events-none"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
+          backgroundSize: "56px 56px",
+          maskImage:
+            "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+        }}
+      />
+
       {/* Radial glow behind portrait */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[720px] h-[720px] rounded-full bg-[radial-gradient(circle,rgba(66,86,180,0.45)_0%,rgba(11,20,55,0)_65%)]" />
+        <motion.div
+          animate={{ scale: [1, 1.08, 1], opacity: [0.85, 1, 0.85] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          className="w-[720px] h-[720px] rounded-full bg-[radial-gradient(circle,rgba(66,86,180,0.45)_0%,rgba(11,20,55,0)_65%)]"
+        />
       </div>
 
       {/* Decorative dots */}
@@ -52,7 +83,9 @@ export default function Hero() {
           >
             <div className="flex items-center gap-2 mb-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-              <span className="text-white font-semibold text-sm">{profile.role}</span>
+              <span className="text-white font-semibold text-sm">
+                <Typewriter words={rotatingRoles} className="inline-block" />
+              </span>
             </div>
             <p className="text-white/60 text-xs pl-3.5">{profile.location}</p>
           </motion.div>
@@ -74,7 +107,21 @@ export default function Hero() {
             </a>
           </motion.div>
 
-          <motion.div variants={fadeUp} custom={3} className="flex gap-2 pt-2 pl-1">
+          <motion.div
+            variants={fadeUp}
+            custom={3}
+            className="bg-emerald-500/10 backdrop-blur-sm border border-emerald-400/30 rounded-xl px-5 py-3 shadow-lg flex items-center gap-2.5"
+          >
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400" />
+            </span>
+            <span className="text-emerald-200 text-xs font-semibold">
+              Available for new projects
+            </span>
+          </motion.div>
+
+          <motion.div variants={fadeUp} custom={4} className="flex gap-2 pt-1 pl-1">
             {socials.map((s) => {
               const Icon = socialIconMap[s.label];
               if (!Icon) return null;
@@ -102,12 +149,13 @@ export default function Hero() {
           className="col-span-12 lg:col-span-6 order-1 lg:order-2 flex items-end justify-center relative"
         >
           <div className="relative">
-            <img
+            <motion.img
               src="/AR Logo7.png"
               alt={profile.fullName}
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
               className="relative z-10 max-h-[380px] md:max-h-[420px] lg:max-h-[440px] w-auto object-contain drop-shadow-2xl"
             />
-            {/* Accent dot */}
             <span className="absolute top-12 right-0 w-2.5 h-4 rounded-full bg-primary shadow-lg shadow-primary/60" />
           </div>
         </motion.div>
@@ -132,12 +180,12 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Name banner overlapping bottom */}
+      {/* Name banner */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.4 }}
-        className="section-container relative z-20 mt-6 text-center px-6 md:px-10 lg:px-12"
+        className="section-container relative z-20 mt-6 text-center px-6 md:px-10 lg:px-12 pb-10"
       >
         <h1 className="text-white text-[40px] sm:text-[52px] md:text-[64px] lg:text-[76px] font-extrabold font-display tracking-tight leading-[1.05]">
           {profile.firstName} <span className="text-primary">{profile.lastName}</span>
@@ -152,7 +200,7 @@ export default function Hero() {
           </a>
         </p>
 
-        <div className="mt-7 flex items-center justify-center gap-4 flex-wrap">
+        <div className="mt-7 flex items-center justify-center gap-3 flex-wrap">
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
@@ -162,6 +210,16 @@ export default function Hero() {
           >
             <FiDownload /> Download CV
           </motion.a>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={() => setPreviewOpen(true)}
+            aria-label="Preview resume"
+            title="Preview resume"
+            className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/15 border border-white/20 text-white px-5 py-3 rounded-full font-semibold backdrop-blur-sm transition-colors"
+          >
+            <HiOutlineEye className="text-lg" /> Preview
+          </motion.button>
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
@@ -171,7 +229,12 @@ export default function Hero() {
             Contact Me
           </motion.a>
         </div>
+
+        <ResumeViewer open={previewOpen} onClose={() => setPreviewOpen(false)} />
       </motion.div>
+
+      {/* Tech stack marquee */}
+      <TechMarquee />
     </section>
   );
 }

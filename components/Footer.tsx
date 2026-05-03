@@ -22,7 +22,7 @@ export default function Footer() {
                 <path d="M17 2 L32 28 L22 28 L17 19 L12 28 L2 28 Z" fill="#FF5733" />
               </svg>
               <span className="text-2xl font-bold">
-                Port<span className="text-primary">m</span>
+                Atta Ur <span className="text-primary">Rahman</span>
               </span>
             </a>
             <p className="text-white/60 max-w-md leading-relaxed mb-6">
@@ -83,7 +83,7 @@ export default function Footer() {
         </div>
 
         <div className="pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-white/50">
-          <p>© {new Date().getFullYear()} Portm. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} {profile.fullName}. All rights reserved.</p>
           <p>
             Designed with <span className="text-primary">♥</span> by{" "}
             {profile.fullName}

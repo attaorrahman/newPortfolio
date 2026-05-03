@@ -129,7 +129,7 @@ export default function About() {
             >
               <span className="text-2xl">😍</span>
               <div>
-                <div className="text-2xl font-bold text-navy">80+</div>
+                <div className="text-2xl font-bold text-navy">30+</div>
                 <div className="text-xs text-text-muted">Happy Clients</div>
               </div>
             </motion.div>

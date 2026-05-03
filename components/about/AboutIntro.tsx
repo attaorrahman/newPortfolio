@@ -40,7 +40,7 @@ export default function AboutIntro() {
               />
             </div>
 
-            {/* 80+ Happy Clients badge */}
+            {/* Happy Clients badge */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -53,7 +53,7 @@ export default function AboutIntro() {
               </div>
               <div>
                 <div className="text-navy font-bold text-lg leading-none">
-                  80<span className="text-primary">+</span>
+                  30<span className="text-primary">+</span>
                 </div>
                 <div className="text-[10px] text-text-muted uppercase tracking-wider">
                   Happy Clients
@@ -74,7 +74,7 @@ export default function AboutIntro() {
             I <span className="text-primary">build software</span> that solve user problems
           </h2>
           <p className="text-text-muted mt-5 leading-relaxed">
-            I'm {profile.fullName} — a Full Stack Developer with 3+ years of
+            I'm {profile.fullName} — an AI Powered Full Stack Developer with 3+ years of
             experience crafting responsive, high-performance web applications
             with React.js, Next.js and Node.js. I enjoy turning complex
             requirements into clean, scalable interfaces and well-architected

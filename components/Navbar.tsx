@@ -4,13 +4,15 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { HiMenuAlt3, HiX } from "react-icons/hi";
+import { HiMenuAlt3, HiX, HiOutlineEye } from "react-icons/hi";
 import { FiDownload } from "react-icons/fi";
 import { navLinks, resumeUrl } from "@/lib/data";
+import ResumeViewer from "./ResumeViewer";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
   const [active, setActive] = useState("Home");
   const router = useRouter();
   const pathname = usePathname();
@@ -107,14 +109,25 @@ export default function Navbar() {
         </ul>
 
         {/* CTA */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setPreviewOpen(true)}
+            aria-label="Preview resume"
+            title="Preview resume"
+            className="hidden sm:inline-flex w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 items-center justify-center text-white transition-colors"
+          >
+            <HiOutlineEye className="text-lg" />
+          </motion.button>
+
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
             href={resumeUrl}
             download
             title="Download CV"
-            className="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-primary to-accent text-white px-6 py-2.5 rounded-full font-semibold text-sm shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-shadow"
+            className="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-primary to-accent text-white px-5 py-2.5 rounded-full font-semibold text-sm shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-shadow"
           >
             <FiDownload className="text-base" />
             Download CV
@@ -151,10 +164,20 @@ export default function Navbar() {
                   </Link>
                 </li>
               ))}
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileOpen(false);
+                  setPreviewOpen(true);
+                }}
+                className="mt-1 inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/15 border border-white/15 text-white px-6 py-2.5 rounded-full font-semibold text-sm"
+              >
+                <HiOutlineEye /> Preview Resume
+              </button>
               <a
                 href={resumeUrl}
                 download
-                className="mt-2 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-accent text-white px-6 py-2.5 rounded-full font-semibold text-sm"
+                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-accent text-white px-6 py-2.5 rounded-full font-semibold text-sm"
               >
                 <FiDownload /> Download CV
               </a>
@@ -162,6 +185,8 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <ResumeViewer open={previewOpen} onClose={() => setPreviewOpen(false)} />
     </motion.header>
   );
 }

@@ -11,10 +11,12 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import FloatingActions from "@/components/FloatingActions";
+import ScrollProgress from "@/components/ScrollProgress";
 
 export default function Home() {
   return (
     <main className="relative overflow-hidden">
+      <ScrollProgress />
       <CustomCursor />
       <Navbar />
       <Hero />
