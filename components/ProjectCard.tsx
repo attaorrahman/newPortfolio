@@ -28,14 +28,17 @@ export default function ProjectCard({ project, index = 0 }: Props) {
         fill
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         loading="lazy"
-        className="absolute inset-0 object-cover object-top mix-blend-overlay opacity-90 group-hover:scale-110 transition-transform duration-700"
+        className="absolute inset-0 object-cover object-top mix-blend-overlay opacity-80 group-hover:scale-110 transition-transform duration-700"
       />
+
+      {/* Base tint to tame bright screenshots */}
+      <div className="absolute inset-0 bg-black/25" />
 
       {/* Hover sheen */}
       <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-      {/* Dark fade at bottom for legibility */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+      {/* Dark fade at bottom for legibility — covers the full text zone */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent" />
 
       {/* Confidential badge */}
       {project.confidential && (
@@ -75,7 +78,7 @@ export default function ProjectCard({ project, index = 0 }: Props) {
         <h3 className="text-white font-bold text-2xl lg:text-[26px] font-display leading-tight mb-1.5">
           {project.title}
         </h3>
-        <p className="text-white/80 text-xs leading-relaxed mb-3 line-clamp-2">
+        <p className="text-white/90 text-xs leading-relaxed mb-3 line-clamp-2 drop-shadow">
           {project.tagline}
         </p>
 

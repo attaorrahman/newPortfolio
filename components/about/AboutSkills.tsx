@@ -20,10 +20,10 @@ const education = [
 ];
 
 const softSkills = [
-  { name: "Communication", level: 95 },
-  { name: "Problem Solving", level: 92 },
-  { name: "Web Application", level: 94 },
-  { name: "Algorithm & Data Structure", level: 85 },
+  "Communication",
+  "Problem Solving",
+  "Web Application",
+  "Algorithm & Data Structure",
 ];
 
 export default function AboutSkills() {
@@ -83,9 +83,9 @@ export default function AboutSkills() {
               Skills
             </h3>
             <div className="space-y-5">
-              {softSkills.map((s, i) => (
+              {softSkills.map((name, i) => (
                 <motion.div
-                  key={s.name}
+                  key={name}
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -94,7 +94,7 @@ export default function AboutSkills() {
                 >
                   <span className="w-2 h-2 rounded-full bg-primary" />
                   <span className="text-navy font-semibold text-sm">
-                    {s.name}
+                    {name}
                   </span>
                 </motion.div>
               ))}

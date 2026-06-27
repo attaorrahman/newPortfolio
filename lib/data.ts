@@ -137,6 +137,28 @@ export const projects: Project[] = [
   },
   {
     id: 4,
+    title: "BNH Masterkey",
+    tagline:
+      "Full-stack content & filter management platform built solo — forms, dynamic content display and advanced filtering",
+    image: "/bnhmasterkey.png",
+    gradient: "from-emerald-700 via-teal-600 to-cyan-500",
+    confidential: true,
+    tech: ["Next.js", "Supabase", "Tailwind CSS", "PostgreSQL", "Vercel"],
+    links: { live: "https://bnhmasterkey.ae" },
+  },
+  {
+    id: 5,
+    title: "ASBISRP",
+    tagline:
+      "Interactive data platform with analytics graphs, location management, advanced filters and comprehensive form handling",
+    image: "/asbisrp.png",
+    gradient: "from-blue-800 via-indigo-600 to-violet-500",
+    confidential: true,
+    tech: ["React.js", "Next.js", "Material UI", "Tailwind CSS"],
+    links: { live: "https://asbisrp.com" },
+  },
+  {
+    id: 6,
     title: "TubeVibe",
     tagline:
       "YouTube-like video streaming app with MUI styling and smooth navigation",
@@ -149,7 +171,7 @@ export const projects: Project[] = [
     },
   },
   {
-    id: 5,
+    id: 7,
     title: "Social Media Frontend",
     tagline:
       "Responsive social media UI built with modern HTML, CSS, and vanilla JavaScript",
@@ -162,7 +184,7 @@ export const projects: Project[] = [
     },
   },
   {
-    id: 6,
+    id: 8,
     title: "AA Visa Consultants",
     tagline:
       "Professional visa consultancy website with clean layout and responsive design",
@@ -175,7 +197,7 @@ export const projects: Project[] = [
     },
   },
   {
-    id: 7,
+    id: 9,
     title: "FIT Club",
     tagline: "Image grid with filters and modal preview",
     image: "/fitClubIMG.png",
@@ -187,7 +209,7 @@ export const projects: Project[] = [
     },
   },
   {
-    id: 8,
+    id: 10,
     title: "Portfolio",
     tagline: "React.js, dynamic content, blazing fast on Vercel",
     image: "/portfolioIMG.png",
@@ -280,21 +302,9 @@ export const skillGroups = [
 
 export const experience = [
   {
-    company: "Ahmasoft",
-    role: "Senior Full Stack Engineer",
-    period: "Feb 2025 — Present",
-    location: "Lahore, Pakistan",
-    bullets: [
-      "Developed and enhanced web applications using React.js, Next.js and Redux Toolkit — dashboards, tables, filters and responsive UI components.",
-      "Worked with backend APIs and server endpoints, managing data flow and implementing search, pagination, sorting and export.",
-      "Performed testing and application support — fixing UI bugs, responsiveness issues and resolving production problems.",
-      "Improved performance using code-splitting, memoization and optimized rendering, while maintaining responsive layouts with Material UI, Bootstrap and custom CSS.",
-    ],
-  },
-  {
     company: "Aleedz Solutions",
-    role: "Full Stack Engineer",
-    period: "Aug 2024 — Feb 2025",
+    role: "Full-Stack Developer",
+    period: "Aug 2024 — Present",
     location: "Remote · New Zealand",
     bullets: [
       "Built and maintained the full frontend using React.js + Redux Toolkit — dynamic dashboards, responsive data tables, advanced filters, multi-level dropdowns, modals and image previews.",
@@ -302,6 +312,18 @@ export const experience = [
       "Integrated APIs with Axios for real-time fetching, implemented pagination, search, sorting and Excel export via XLSX.",
       "Performance work with React.lazy, Suspense, useMemo, React.memo, useRef, debouncing and virtualized tables.",
       "Implemented conditional rendering, real-time form validation, PDF/image handling and interactive UI workflows.",
+    ],
+  },
+  {
+    company: "Ahmasoft",
+    role: "Full-Stack Developer",
+    period: "Feb 2025 — Feb 2026",
+    location: "Lahore, Pakistan",
+    bullets: [
+      "Developed and enhanced web applications using React.js, Next.js and Redux Toolkit — dashboards, tables, filters and responsive UI components.",
+      "Worked with backend APIs and server endpoints, managing data flow and implementing search, pagination, sorting and export.",
+      "Performed testing and application support — fixing UI bugs, responsiveness issues and resolving production problems.",
+      "Improved performance using code-splitting, memoization and optimized rendering, while maintaining responsive layouts with Material UI, Bootstrap and custom CSS.",
     ],
   },
   {

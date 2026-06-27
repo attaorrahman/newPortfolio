@@ -12,15 +12,12 @@ export default function RouteLoader() {
   const tickRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const finishRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Intercept link clicks anywhere on the page
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
       if (e.defaultPrevented) return;
-      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)
-        return;
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
 
-      const target = e.target as HTMLElement | null;
-      const anchor = target?.closest("a") as HTMLAnchorElement | null;
+      const anchor = (e.target as HTMLElement | null)?.closest("a") as HTMLAnchorElement | null;
       if (!anchor) return;
       if (anchor.target && anchor.target !== "_self") return;
       if (anchor.hasAttribute("download")) return;
@@ -33,11 +30,9 @@ export default function RouteLoader() {
         href.startsWith("javascript:") ||
         href.startsWith("http://") ||
         href.startsWith("https://")
-      )
-        return;
+      ) return;
       if (href.startsWith("#")) return;
 
-      // Strip the hash for current-path comparison
       const url = new URL(anchor.href, window.location.href);
       const samePath =
         url.pathname === window.location.pathname &&
@@ -51,7 +46,6 @@ export default function RouteLoader() {
     return () => document.removeEventListener("click", onClick);
   }, []);
 
-  // When pathname/search changes, finish progress
   useEffect(() => {
     if (loading) finishLoading();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -60,16 +54,16 @@ export default function RouteLoader() {
   const startLoading = () => {
     if (tickRef.current) clearInterval(tickRef.current);
     if (finishRef.current) clearTimeout(finishRef.current);
-    setProgress(8);
+    setProgress(10);
     setLoading(true);
 
     tickRef.current = setInterval(() => {
       setProgress((p) => {
-        if (p < 70) return p + Math.random() * 8;
-        if (p < 90) return p + Math.random() * 1.5;
+        if (p < 65) return p + Math.random() * 10;
+        if (p < 88) return p + Math.random() * 2;
         return p;
       });
-    }, 220);
+    }, 200);
   };
 
   const finishLoading = () => {
@@ -78,31 +72,30 @@ export default function RouteLoader() {
     finishRef.current = setTimeout(() => {
       setLoading(false);
       setProgress(0);
-    }, 350);
+    }, 380);
   };
 
   return (
     <>
-      {/* Top progress bar */}
+      {/* Top progress bar — always on top */}
       <AnimatePresence>
         {loading && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-            className="fixed top-0 left-0 right-0 z-[100] pointer-events-none"
+            exit={{ opacity: 0, transition: { duration: 0.3 } }}
+            className="fixed top-0 left-0 right-0 z-[200] h-[3px] bg-gray-100"
           >
             <motion.div
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.25, ease: "easeOut" }}
-              className="h-[3px] bg-gradient-to-r from-primary via-fuchsia-500 to-accent shadow-[0_0_12px_rgba(255,87,51,0.7)]"
+              className="h-full bg-gradient-to-r from-primary via-fuchsia-500 to-accent rounded-r-full shadow-[0_0_10px_2px_rgba(255,87,51,0.5)]"
             />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Subtle backdrop + center spinner */}
+      {/* Frosted glass overlay + centered loader */}
       <AnimatePresence>
         {loading && (
           <motion.div
@@ -110,20 +103,77 @@ export default function RouteLoader() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[99] pointer-events-none flex items-center justify-center"
+            className="fixed inset-0 z-[199] flex items-center justify-center"
             aria-live="polite"
             aria-busy="true"
           >
-            <div className="absolute inset-0 bg-navy-dark/30 backdrop-blur-[2px]" />
-            <div className="relative bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl px-6 py-4 flex items-center gap-3 border border-white">
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-primary" />
-              </span>
-              <span className="text-navy font-semibold text-sm tracking-wide">
-                Loading…
-              </span>
-            </div>
+            {/* Blur backdrop */}
+            <div className="absolute inset-0 bg-white/60 backdrop-blur-sm" />
+
+            {/* Loader card */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.88, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92, y: 8 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="relative flex flex-col items-center gap-4 bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl border border-white px-8 py-7"
+            >
+              {/* Spinning ring */}
+              <div className="relative w-14 h-14">
+                <svg
+                  className="w-14 h-14 -rotate-90"
+                  viewBox="0 0 56 56"
+                  fill="none"
+                >
+                  <circle
+                    cx="28" cy="28" r="24"
+                    stroke="#f0f0f0"
+                    strokeWidth="4"
+                  />
+                  <motion.circle
+                    cx="28" cy="28" r="24"
+                    stroke="url(#loaderGrad)"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                    strokeDasharray="150.8"
+                    animate={{ strokeDashoffset: [150.8, 0] }}
+                    transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                  <defs>
+                    <linearGradient id="loaderGrad" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#FF5733" />
+                      <stop offset="1" stopColor="#d946ef" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                {/* Initials in center */}
+                <span className="absolute inset-0 flex items-center justify-center text-[11px] font-bold text-navy font-display">
+                  AR
+                </span>
+              </div>
+
+              {/* Progress percentage */}
+              <div className="flex flex-col items-center gap-1">
+                <span className="text-navy font-semibold text-sm tracking-wide">
+                  Loading page…
+                </span>
+                <motion.span
+                  key={Math.round(progress)}
+                  className="text-xs text-text-muted tabular-nums"
+                >
+                  {Math.min(Math.round(progress), 100)}%
+                </motion.span>
+              </div>
+
+              {/* Mini progress bar inside card */}
+              <div className="w-full h-1 bg-gray-100 rounded-full overflow-hidden">
+                <motion.div
+                  animate={{ width: `${progress}%` }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                  className="h-full bg-gradient-to-r from-primary to-fuchsia-500 rounded-full"
+                />
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
